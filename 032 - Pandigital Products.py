@@ -18,28 +18,24 @@ print("found all permutations of 1-9")
 
 
 
-
+products = []
+print("working...")
 for p in range(len(permutations)):
-    for i in range(5):
+    #print("p =", p, "/", len(permutations))
+    for i in range(1,5):
         sa = ""
         for a in range(i):
             sa += str(permutations[p][a])
-        for j in range(i, 8):
-            sb = 1
-            for b in range(j):
-                continue
+        for j in range(i+1, 8):
+            sb = ""
+            sc = ""
+            for b in range(j-i):
+                sb += str(permutations[p][i+b])
+            for c in range(9-j):
+                sc += str(permutations[p][j+c])
+            #print(sa + " * " + sb + " = " + sc)
+            if int(sa) * int(sb) != int(sc): continue
+            if int(sc) not in products:
+                products.append(int(sc))
 
-    break
-
-
-
-
-
-def isPandigital(a:int, b:int):
-    c = a * b
-    s = str(a) + str(b) + str(c)
-    print(s)
-    if len(s) == 9:
-        print(s)
-    return
-
+print(sum(products))
