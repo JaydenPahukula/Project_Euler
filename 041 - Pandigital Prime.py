@@ -1,5 +1,4 @@
 
-from re import X
 
 
 def findPrimes(n):
