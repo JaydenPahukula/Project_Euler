@@ -1,11 +1,4 @@
-
-#checks if input is a palindrome
-def isPalindrome(input):
-    n = str(input)
-    for i in range(round(len(n)/2)):
-        if n[i] != n[-i-1]:
-            return False
-    return True
+import math
 
 #finds all primes below n
 def findPrimes(n:int):
@@ -24,39 +17,47 @@ def findPrimes(n:int):
             return False
     return True
 
-#returns an int with its digits reversed (123 -> 321)
-def reverse(num:int):
-    string = str(num)
-    reverseString = ''
-    for c in string:
-        reverseString = c + reverseString
-    return int(reverseString)
+def isPrimeMR(n:int):
+    #miller-rabin (only accurate up to 3 * 10**14)
+    if n <= 1: return False
+    if n == 2: return True
+    if n % 2 == 0: return False
+    if n < 9: return True
+    if n % 3 == 0: return False
+    c = 5;            
+    while c ** 2 <= n:
+        if n % c == 0: return False
+        if n % (c + 2) == 0: return False
+        c += 6
+    return True
 
+def isPrime(num):
+    if num <= 1:
+        return False
+    for i in range(2,int(num/2+1)):
+        if num % i == 0:
+            return False
+    return True
 
 def reversiblePrimeSquares(n:int):
-    primes = findPrimes(100000000)
-    print("found primes")
-    p = 0
-    while 1:
-        primes[p] = primes[p] ** 2
-        if isPalindrome(primes[p]):
-            primes.pop(p)
-        else:
-            p += 1
-            if p >= len(primes):
-                break
-    print("found primes")
+    primes = findPrimes(20000000)
     RPSs = []
-    while 1:
-        r = reverse(primes[0])
-        if r in primes:
-            RPSs.append(primes[0])
+    i = len(primes)
+    for prime in primes:
+        i -= 1
+        r = int(str(prime**2)[::-1])
+        if r != prime**2 and math.sqrt(r) % 1 == 0 and isPrime(math.sqrt(r)):
+            RPSs.append(prime**2)
             RPSs.append(r)
-            print(len(RPSs))
+            primes.remove(math.sqrt(r))
             if len(RPSs) >= n:
-                return RPSs
-            primes.remove(r)
-        primes.pop(0)
+                return sum(RPSs)
     return
 
-print(reversiblePrimeSquares(10))
+
+print(reversiblePrimeSquares(50))
+
+
+# tried:
+# 36854889426530
+# 34740767840240

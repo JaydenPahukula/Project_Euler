@@ -1,25 +1,22 @@
-import math
-
-def calculateNumerator(i:int):
-    if i == 0:
-        return 1
-    return (2 * calculateDenominator(i-1)) + calculateNumerator(i-1)
-
-def calculateDenominator(i:int):
-    if i == 0:
-        return 1
-    return calculateDenominator(i-1) + calculateNumerator(i-1)
 
 
-def squareRootConvergents(n:int):
+def squareRootConvergents(N:int):
     count = 0
-    x = 1
-    for i in range(1, n+1):
-        n = calculateNumerator(i)
-        d = calculateDenominator(i)
-        print(i, n, d)
-        if int(math.log10(n)) > int(math.log10(d)):
+    n = 1
+    d = 1
+    ndigits = 10
+    ddigits = 10
+    for i in range(1, N+1):
+        oldn = n
+        n = (2 * d) + n
+        d = d + oldn
+        if n >= ndigits:
+            ndigits *= 10
+        if d >= ddigits:
+            ddigits *= 10
+        if ndigits > ddigits:
             count += 1
     return count
 
-print(squareRootConvergents(100))
+
+print(squareRootConvergents(1000))
