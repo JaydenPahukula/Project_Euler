@@ -17,7 +17,7 @@ def spiralPrimes(ratio:float):
     i = 1
     increment = 2
     numPrimes = 0
-    n = 0
+    n = 1
     while 1:
         for x in range(4):
             i += increment
@@ -26,10 +26,9 @@ def spiralPrimes(ratio:float):
         n += 4
         if numPrimes / n < ratio:
             return increment + 1
-        #input()
-        print(numPrimes / n)
         increment += 2
-
     return
 
-print(spiralPrimes(0.10))
+print(spiralPrimes(0.1))
+
+#tried

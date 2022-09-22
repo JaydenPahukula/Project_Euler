@@ -17,20 +17,6 @@ def findPrimes(n:int):
             return False
     return True
 
-def isPrimeMR(n:int):
-    #miller-rabin (only accurate up to 3 * 10**14)
-    if n <= 1: return False
-    if n == 2: return True
-    if n % 2 == 0: return False
-    if n < 9: return True
-    if n % 3 == 0: return False
-    c = 5;            
-    while c ** 2 <= n:
-        if n % c == 0: return False
-        if n % (c + 2) == 0: return False
-        c += 6
-    return True
-
 def isPrime(num):
     if num <= 1:
         return False
