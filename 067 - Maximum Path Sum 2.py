@@ -103,7 +103,6 @@ triangle = [
 def findBestPath(input):
     triangle = input
     height = len(triangle)
-    sum = 0
     level = height-2
     while 1:
         for x in range(len(triangle[level])):

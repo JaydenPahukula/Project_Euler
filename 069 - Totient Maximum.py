@@ -1,30 +1,23 @@
 
-def phi(n:int):
-    count = n-1
-    divisors = []
-    for i in range(2, n-1):
-        #print("i =", i)
-        fail = False
-        for div in divisors:
-            if i % div == 0:
-                count -= 1
-                fail = True
-                break
-        if fail: continue
-        if n % i == 0:
-            count -= 1
-            divisors.append(i)
-    return count
+def findPrimes(n:int):
+    primes = []
+    nums = [True] * n
+    for i in range(2, n):
+        if nums[i]:
+            primes.append(i)
+            for j in range(i*i,n,i):
+                nums[j] = False
+    return primes
 
-#this actually takes over 2 hours to run
 def solution(n:int):
-    maxx = 0
-    maxn = 0
-    for i in range(n, 1, -1):
-        x = i / phi(i)
-        if x > maxx:
-            maxx = x
-            maxn = i
-    return maxn
+    primses = findPrimes(100)
+    x = 1
+    i = -1
+    while x < n:
+        i += 1
+        x *= primses[i]
+    x /= primses[i]
+    
+    return int(x)
 
 print(solution(1000000))
