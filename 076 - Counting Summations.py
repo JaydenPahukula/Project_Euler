@@ -1,36 +1,12 @@
 
-knowns = {}
+def solution(TARGET:int):
+    ways = [0 for i in range(TARGET+1)]
+    ways[0] = 1
 
-def solution(n:int, list=[]):
-    ways = 0
+    for i in range(1, TARGET):                
+        for j in range(i, TARGET+1):
+            ways[j] += ways[j - i]
 
-    if list == []: last = 1
-    else: last = list[-1]
-
-    #check if already known
-    situation = (last * 1000000) + n - sum(list)
-    if last > 1 and situation in knowns:
-        return knowns[situation]
-
-    #calculate number of ways
-    templist = list.copy()
-    templist.append(0)
-    listlen = len(list)
-    for x in range(last, n):
-        templist[listlen] = x
-        s = sum(templist)
-        if s == n: #success
-            ways += 1
-            break
-        elif s > n: #busted
-            break
-        else: #go another layer deeper
-            ways += solution(n, templist)
-
-    #add situation to list on knowns
-    if last > 1:
-        knowns[situation] = ways
-
-    return ways
+    return ways[TARGET]
 
 print(solution(100))
